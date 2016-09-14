@@ -3,16 +3,20 @@ using System.Collections;
 
 public class DNA 
 {
-    private int geneR; // controls Red and levels of Recursion
-    private int geneG; // controls Green and Girth of branches
-    private int geneB; // controls Blue and angle of Branches
-    public int[] genes;
+    // controls Red and levels of Recursion
+    // controls Green and Girth of branches
+    // controls Blue and angle of Branches
+    private const int numGenes = 3; 
+    public int[] genes = new int[numGenes];
 
     public DNA ()
     {
-        for (int i = 0; i < genes.Length; i++) genes[i] = 0;
+        for (int i = 0; i < numGenes; i++) genes[i] = 5;
     }
 
-
-	
+    // create clone
+    public DNA (DNA original)
+    {
+        for (int i = 0; i < numGenes; i++) genes[i] = original.genes[i];
+    }
 }
