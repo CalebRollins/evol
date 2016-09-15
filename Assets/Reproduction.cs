@@ -54,20 +54,12 @@ public static class Reproduction
     // checks if biomorph is completely surrounded
     public static bool DeadEnd (int[] genes)
     {
-        for (int x = genes[0] - 1; x <= genes[0] + 1; x++)
-        {
-            if (x < 0 || x > DNA.geneMaxVal) continue;
-            for (int y = genes[1] - 1; y <= genes[1] + 1; y++)
-            {
-                if (y < 0 || y > DNA.geneMaxVal) continue;
-                for (int z = genes[2] - 1; z <= genes[2] + 1; z++)
-                {
-                    if (z < 0 || z > DNA.geneMaxVal) continue;
-                    if (x == genes[0] && y == genes[1] && z == genes[2]) continue;
-                    if (!Biomorph.taken[x, y, z]) return false;
-                }
-            }
-        }
+        if ((genes[0] - 1 >= 0 && genes[0] - 1 <= DNA.geneMaxVal) && !Biomorph.taken[genes[0] - 1, genes[1], genes[2]]) return false;
+        if ((genes[0] + 1 >= 0 && genes[0] + 1 <= DNA.geneMaxVal) && !Biomorph.taken[genes[0] + 1, genes[1], genes[2]]) return false;
+        if ((genes[1] - 1 >= 0 && genes[1] - 1 <= DNA.geneMaxVal) && !Biomorph.taken[genes[0], genes[1] - 1, genes[2]]) return false;
+        if ((genes[1] + 1 >= 0 && genes[1] + 1 <= DNA.geneMaxVal) && !Biomorph.taken[genes[0], genes[1] + 1, genes[2]]) return false;
+        if ((genes[2] - 1 >= 0 && genes[2] - 1 <= DNA.geneMaxVal) && !Biomorph.taken[genes[0], genes[1], genes[2] - 1]) return false;
+        if ((genes[2] + 1 >= 0 && genes[2] + 1 <= DNA.geneMaxVal) && !Biomorph.taken[genes[0], genes[1], genes[2] + 1]) return false;
         return true;
     }
 }
