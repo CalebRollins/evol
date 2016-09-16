@@ -22,7 +22,8 @@ public class Biomorph : MonoBehaviour {
     private IEnumerator Init ()
     { 
         Debug.Log("Genes: " + dna.genes[0] + " " + dna.genes[1] + " " + dna.genes[2]);
-        yield return new WaitForSeconds(.1f);
+        cam = GameObject.Find("Cam").GetComponent<Cam>();
+        yield return new WaitForSeconds(1f);
         if (++ID >= max - 1) yield break;
         
         Development.Develop(this);
