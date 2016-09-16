@@ -27,9 +27,12 @@ public static class Development
         Initialize(go, parent, color, scale);
         Initialize(go2, parent, color, scale);
 
-        go.transform.localPosition = new Vector3(-1, 2, 0);
-        go2.transform.localPosition = new Vector3(1, 2, 0);
+        Vector3 spawnPoint = parent.transform.GetChild(1).transform.position;
+        go.transform.position = spawnPoint;
+        go2.transform.position = spawnPoint;
 
+        go.transform.localRotation = Quaternion.Euler(0f, 0f, -45f);
+        go2.transform.localRotation = Quaternion.Euler(0f, 0f, 45f);
         Fractal(go, levels, biomorph, color, scale);
         Fractal(go2, levels, biomorph, color, scale);
     }
