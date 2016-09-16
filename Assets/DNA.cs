@@ -3,12 +3,13 @@ using System.Collections;
 
 public class DNA 
 {
-    // controls Red and levels of Recursion
-    // controls Green and Girth of branches
-    // controls Blue and angle of Branches
+
     private const int numGenes = 3;
-    public const int geneMaxVal = 9;
+    public const int geneMaxVal = 9; // 0 to ...
     public int[] genes = new int[numGenes];
+    // [0] controls Red, levels of Recursion, x
+    // [1] controls Green, Girth of branches, y
+    // [2] controls Blue, angle of Branches, z
 
     public DNA ()
     {

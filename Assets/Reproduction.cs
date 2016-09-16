@@ -16,7 +16,7 @@ public static class Reproduction
         GameObject go = GameObject.Instantiate(biomorph.gameObject, Vector3.zero, Quaternion.identity) as GameObject;
         
         go.GetComponent<Biomorph>().dna = newDna;
-        const int distBetweenBiomorphs = 4;
+        const int distBetweenBiomorphs = 10;
         go.transform.position = biomorph.transform.TransformPoint( Vector3.Scale(GeneDiff(biomorph.dna, newDna), 
                                               new Vector3(distBetweenBiomorphs, distBetweenBiomorphs, distBetweenBiomorphs)));
     }
