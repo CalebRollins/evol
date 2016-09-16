@@ -13,14 +13,16 @@ public static class Reproduction
             return; 
         }
         DNA newDna = MutateDNA(biomorph.dna);
-        GameObject go = GameObject.Instantiate(biomorph.gameObject, Vector3.zero, Quaternion.identity) as GameObject;
+        GameObject go = GameObject.Instantiate(Resources.Load("biomorph"), Vector3.zero, Quaternion.identity) as GameObject;
         
         go.GetComponent<Biomorph>().dna = newDna;
-        const int distBetweenBiomorphs = 10;
+        DNA test = go.GetComponent<Biomorph>().dna;
+
         go.transform.position = biomorph.transform.TransformPoint( Vector3.Scale(GeneDiff(biomorph.dna, newDna), 
-                                              new Vector3(distBetweenBiomorphs, distBetweenBiomorphs, distBetweenBiomorphs)));
+                                              new Vector3(Biomorph.distBetweenBiomorphs, Biomorph.distBetweenBiomorphs, Biomorph.distBetweenBiomorphs)));
     }
 
+    // mutates a single gene by +/- 1
     public static DNA MutateDNA (DNA dna)
     {
         DNA newDna;
