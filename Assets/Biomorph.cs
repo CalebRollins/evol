@@ -10,7 +10,7 @@ public class Biomorph : MonoBehaviour {
     public GameObject prefab;
     public DNA dna;
     public bool firstBiomorph; // set this in the inspector
-    public const int distBetweenBiomorphs = 30;
+    public const int distBetweenBiomorphs = 50;
 
     void Start ()
     {
@@ -18,6 +18,11 @@ public class Biomorph : MonoBehaviour {
         
         StartCoroutine(Init());
     }   
+    
+    void Update ()
+    {
+        transform.localScale = transform.localScale;
+    }
 
     private IEnumerator Init ()
     { 
@@ -27,7 +32,7 @@ public class Biomorph : MonoBehaviour {
         if (++ID >= max - 1) yield break;
         
         Development.Develop(this);
-        cam.focus = new Vector3(transform.position.x, transform.position.y + 5, transform.position.z - 25f);
+        cam.focus = new Vector3(transform.position.x, transform.position.y + 5, transform.position.z - 35f);
         Reproduction.Reproduce(this);
 
     }
