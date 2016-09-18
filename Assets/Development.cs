@@ -53,7 +53,7 @@ public static class Development
         go.transform.position = spawnPoint;
         go2.transform.position = spawnPoint;
 
-        int angle = (biomorph.dna.genes[1] + 1) * (DNA.geneMaxVal - 1);
+        int angle = (biomorph.dna.genes[1] + 1) * 9;
         go.transform.localRotation = Quaternion.Euler(0f, 0f, -(float)angle);
         go2.transform.localRotation = Quaternion.Euler(0f, 0f, (float)angle);
 

@@ -5,7 +5,7 @@ public class DNA
 {
 
     private const int numGenes = 3;
-    public const int geneMaxVal = 7; // 0 to ...
+    public const int geneMaxVal = 9; // 0 to ...
     public int[] genes = new int[numGenes];
     // [0] controls Red, levels of Recursion, x
     // [1] controls Green, Girth of branches, y
