@@ -10,7 +10,7 @@ public class Biomorph : MonoBehaviour {
     public GameObject prefab;
     public DNA dna;
     public bool firstBiomorph; // set this in the inspector
-    public const int distBetweenBiomorphs = 100;
+    public const int distBetweenBiomorphs = 75;
     private float originalY;
     private const float floatStrength = 5;
     private float seed;
@@ -41,7 +41,7 @@ public class Biomorph : MonoBehaviour {
         
         Development.Develop(this);
 
-        cam.focus = new Vector3(transform.position.x, transform.position.y + 10, transform.position.z - 75F);
+        cam.focus = new Vector3(transform.position.x, transform.position.y + 5, transform.position.z - 70F);
         Reproduction.Reproduce(this);
 
     }
