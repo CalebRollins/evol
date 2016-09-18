@@ -12,7 +12,7 @@ public static class Development
         Color color = new Color((float)genes[0] / (DNA.geneMaxVal + 1F), (float)genes[1] / (DNA.geneMaxVal + 1F), (float)genes[2] / (DNA.geneMaxVal + 1F));
         CreateEndCap(biomorph.transform, biomorph.transform.position, color);
         GameObject go = GameObject.Instantiate(biomorph.prefab, biomorph.transform.position, Quaternion.identity) as GameObject;
-        float stretchAmount = biomorph.dna.genes[2] / 2F;
+        float stretchAmount = biomorph.dna.genes[2] / 1.5F;
         Stretch(go, stretchAmount);
         Initialize(go, biomorph.gameObject, color);
         Fractal(go, levels, biomorph, color);

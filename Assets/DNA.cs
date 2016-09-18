@@ -13,9 +13,7 @@ public class DNA
 
     public DNA ()
     {
-        for (int i = 0; i < numGenes; i++) genes[i] = 7;
-        genes[2] = 0;
-        //(geneMaxVal - 1) / 
+        for (int i = 0; i < numGenes; i++) genes[i] = (geneMaxVal - 1) / 2;
     }
 
     // create clone
