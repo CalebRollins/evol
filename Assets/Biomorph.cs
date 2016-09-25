@@ -9,11 +9,13 @@ public class Biomorph : MonoBehaviour {
     public Material material;
     public GameObject prefab;
     public DNA dna;
+    public Color color;
+    public float scale;
     public bool firstBiomorph; // set this in the inspector
     public const int distBetweenBiomorphs = 75;
     private float originalY;
     private const float floatStrength = 5;
-    private float seed;
+    private float floatSpeedSeed;
 
     void Start ()
     {
@@ -25,7 +27,7 @@ public class Biomorph : MonoBehaviour {
     void Update ()
     {
         transform.position = new Vector3(transform.position.x,
-        originalY + ((float)Mathf.Sin(Time.time * seed) * floatStrength),
+        originalY + ((float)Mathf.Sin(Time.time * floatSpeedSeed) * floatStrength),
         transform.position.z);
     }
 
@@ -33,7 +35,7 @@ public class Biomorph : MonoBehaviour {
     { 
         Debug.Log("Genes: " + dna.genes[0] + " " + dna.genes[1] + " " + dna.genes[2]);
         originalY = transform.position.y;
-        seed = Random.Range(1.0F, 1.5F);
+        floatSpeedSeed = Random.Range(1.0F, 1.5F);
         cam = GameObject.Find("Cam").GetComponent<Cam>();
 
         yield return new WaitForSeconds(3f);

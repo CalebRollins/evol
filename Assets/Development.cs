@@ -9,61 +9,62 @@ public static class Development
         
         int[] genes = biomorph.dna.genes;
         
-        Color color = new Color((float)genes[0] / (DNA.geneMaxVal + 1F), (float)genes[1] / (DNA.geneMaxVal + 1F), (float)genes[2] / (DNA.geneMaxVal + 1F));
-        CreateEndCap(biomorph.transform, biomorph.transform.position, color);
-        GameObject go = GameObject.Instantiate(biomorph.prefab, biomorph.transform.position, Quaternion.identity) as GameObject;
-        float stretchAmount = biomorph.dna.genes[2] / 3F;
-        Initialize(go, biomorph.gameObject, color);
-        Fractal(go, levels, biomorph, color);
+        biomorph.color = new Color((float)genes[0] / (DNA.geneMaxVal + 1F), (float)genes[1] / (DNA.geneMaxVal + 1F), (float)genes[2] / (DNA.geneMaxVal + 1F));
+        biomorph.scale = biomorph.dna.genes[2] - 1.0F;
+        CreateEndCap(biomorph.transform, biomorph.transform.position, biomorph.color, biomorph.scale);
+        GameObject trunk = GameObject.Instantiate(biomorph.prefab, biomorph.transform.position, Quaternion.identity) as GameObject;
         
+        ScaleCylinder(trunk, biomorph.scale);
+        Initialize(trunk, biomorph.gameObject, biomorph.color);
+        Fractal(trunk, levels, biomorph); 
     }
 
-    public static void Stretch (GameObject original, float stretchAmount)
+    public static void ScaleCylinder (GameObject original, float stretchAmount)
     {
         Vector3[] verts = original.transform.GetChild(0).GetComponent<MeshFilter>().mesh.vertices; // get all vertices from model
+
         for (int i = 0; i < verts.Length; i++)
         {
-            if(verts[i].y > 0F)
-            {
-                verts[i] += Vector3.up * stretchAmount; 
-            }
+            verts[i] = Vector3.Scale(verts[i], new Vector3(stretchAmount, 1.0F, stretchAmount));
+            if (verts[i].y > 0F) verts[i] += Vector3.up * stretchAmount;
         }
         original.transform.GetChild(0).GetComponent<MeshFilter>().mesh.vertices = verts;
         original.transform.GetChild(1).transform.position += Vector3.up * stretchAmount; // move up spawn point
     }
 
-    public static void Fractal (GameObject parent, int levels, Biomorph biomorph, Color color)
+    public static void Fractal (GameObject parent, int levels, Biomorph biomorph)
     {
         if (levels <= 0)
         {
-            CreateEndCap(parent.transform, parent.transform.GetChild(1).transform.position, color);
+            CreateEndCap(parent.transform, parent.transform.GetChild(1).transform.position, biomorph.color, biomorph.scale);
             return;
         }
 
         levels--;
 
-        GameObject go = GameObject.Instantiate(parent, Vector3.zero, Quaternion.identity) as GameObject;
-        GameObject go2 = GameObject.Instantiate(parent, Vector3.zero, Quaternion.identity) as GameObject;
+        GameObject branch1 = GameObject.Instantiate(parent, Vector3.zero, Quaternion.identity) as GameObject;
+        GameObject branch2 = GameObject.Instantiate(parent, Vector3.zero, Quaternion.identity) as GameObject;
 
-        Initialize(go, parent, color);
-        Initialize(go2, parent, color);
+        Initialize(branch1, parent, biomorph.color);
+        Initialize(branch2, parent, biomorph.color);
 
         Vector3 spawnPoint = parent.transform.GetChild(1).transform.position;
-        go.transform.position = spawnPoint;
-        go2.transform.position = spawnPoint;
+        branch1.transform.position = spawnPoint;
+        branch2.transform.position = spawnPoint;
 
         int angle = (biomorph.dna.genes[1] + 1) * 9;
-        go.transform.localRotation = Quaternion.Euler(0f, 0f, -(float)angle);
-        go2.transform.localRotation = Quaternion.Euler(0f, 0f, (float)angle);
+        branch1.transform.localRotation = Quaternion.Euler(0f, 0f, -(float)angle);
+        branch2.transform.localRotation = Quaternion.Euler(0f, 0f, (float)angle);
 
-        Fractal(go, levels, biomorph, color);
-        Fractal(go2, levels, biomorph, color);
+        Fractal(branch1, levels, biomorph);
+        Fractal(branch2, levels, biomorph);
     }
 
-    public static void CreateEndCap (Transform parent, Vector3 position, Color color)
+    public static void CreateEndCap (Transform parent, Vector3 position, Color color, float scale)
     {
         GameObject go = GameObject.Instantiate(Resources.Load("Sphere"), position, Quaternion.identity) as GameObject;
         go.GetComponent<MeshRenderer>().material.color = color;
+        go.GetComponent<Transform>().localScale = new Vector3(scale, scale, scale);
         go.transform.parent = parent;
     }
 
