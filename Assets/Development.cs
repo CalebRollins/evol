@@ -5,12 +5,12 @@ public static class Development
 {
 	public static void Develop (Biomorph biomorph)
     {
-        int levels = biomorph.dna.genes[0];
+        int levels = biomorph.dna.genes[0] + 1;
         
         int[] genes = biomorph.dna.genes;
         
         biomorph.color = new Color((float)genes[0] / (DNA.geneMaxVal + 1F), (float)genes[1] / (DNA.geneMaxVal + 1F), (float)genes[2] / (DNA.geneMaxVal + 1F));
-        biomorph.scale = biomorph.dna.genes[2] - 1.0F;
+        biomorph.scale = (biomorph.dna.genes[2] + 1.0F) / 3.5F;
         CreateEndCap(biomorph.transform, biomorph.transform.position, biomorph.color, biomorph.scale);
         GameObject trunk = GameObject.Instantiate(biomorph.prefab, biomorph.transform.position, Quaternion.identity) as GameObject;
         
@@ -26,10 +26,10 @@ public static class Development
         for (int i = 0; i < verts.Length; i++)
         {
             verts[i] = Vector3.Scale(verts[i], new Vector3(stretchAmount, 1.0F, stretchAmount));
-            if (verts[i].y > 0F) verts[i] += Vector3.up * stretchAmount;
+            //if (verts[i].y > 0F) verts[i] += Vector3.up * stretchAmount;
         }
         original.transform.GetChild(0).GetComponent<MeshFilter>().mesh.vertices = verts;
-        original.transform.GetChild(1).transform.position += Vector3.up * stretchAmount; // move up spawn point
+        //original.transform.GetChild(1).transform.position += Vector3.up * stretchAmount; // move up spawn point
     }
 
     public static void Fractal (GameObject parent, int levels, Biomorph biomorph)
@@ -52,7 +52,7 @@ public static class Development
         branch1.transform.position = spawnPoint;
         branch2.transform.position = spawnPoint;
 
-        int angle = (biomorph.dna.genes[1] + 1) * 9;
+        float angle = (biomorph.dna.genes[1] + 1) * (90F / (DNA.geneMaxVal + 1));
         branch1.transform.localRotation = Quaternion.Euler(0f, 0f, -(float)angle);
         branch2.transform.localRotation = Quaternion.Euler(0f, 0f, (float)angle);
 

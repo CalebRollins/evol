@@ -6,6 +6,8 @@ public static class Reproduction
 
 	public static void Reproduce (Biomorph biomorph)
     {
+        
+
         // prevent biomorph from reproducing if surrounded
         if (DeadEnd(biomorph.dna.genes))
         {
@@ -30,7 +32,7 @@ public static class Reproduction
         {
             newDna = new DNA(dna); // start from scratch each time
             int geneToMutate = Random.Range(0, newDna.genes.Length);
-            gene = MutateGene(newDna.genes[geneToMutate]);
+            gene = AddToGene(newDna.genes[geneToMutate]);
             newDna.genes[geneToMutate] = gene;
         } while (gene < 0 || gene > DNA.geneMaxVal || Biomorph.taken[newDna.genes[0], newDna.genes[1], newDna.genes[2]]);
 
@@ -44,6 +46,11 @@ public static class Reproduction
     {
         int change = Random.Range(1, 3) * 2 - 3;
         return gene + change;
+    }
+
+    public static int AddToGene (int gene)
+    {
+        return gene + 1;
     }
 
     // returns difference between two DNA sequences as a Vector3

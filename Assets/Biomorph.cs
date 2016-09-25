@@ -32,18 +32,25 @@ public class Biomorph : MonoBehaviour {
     }
 
     private IEnumerator Init ()
-    { 
+    {
         Debug.Log("Genes: " + dna.genes[0] + " " + dna.genes[1] + " " + dna.genes[2]);
         originalY = transform.position.y;
         floatSpeedSeed = Random.Range(1.0F, 1.5F);
         cam = GameObject.Find("Cam").GetComponent<Cam>();
 
-        yield return new WaitForSeconds(3f);
         if (++ID >= max - 1) yield break;
-        
+        yield return new WaitForSeconds(3f);
         Development.Develop(this);
-
+        
         cam.focus = new Vector3(transform.position.x, transform.position.y + 5, transform.position.z - 70F);
+        if (dna.genes[0] == DNA.geneMaxVal && dna.genes[1] == DNA.geneMaxVal && dna.genes[2] == DNA.geneMaxVal)
+        {
+            yield return new WaitForSeconds(1.5f);
+            MyUI ui = GameObject.Find("UI").GetComponent<MyUI>();
+            ui.End();
+            yield break;
+        }
+
         Reproduction.Reproduce(this);
 
     }

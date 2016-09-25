@@ -5,10 +5,18 @@ using UnityEngine.UI;
 
 public class MyUI : MonoBehaviour {
 
-    public Text text;
+    public Text infoText;
+    public Text endText;
+
     public void Start ()
     {
-        text.enabled = false;
+        infoText.enabled = false;
+        endText.enabled = false;
+    }
+
+    public void End ()
+    {
+        endText.enabled = true;
     }
 
     public void Restart ()
@@ -23,11 +31,11 @@ public class MyUI : MonoBehaviour {
 
     public void InfoMouseEnter ()
     {
-        text.enabled = true;
+        infoText.enabled = true;
     }
 
     public void InfoMouseExit ()
     {
-        text.enabled = false;
+        infoText.enabled = false;
     }
 }
