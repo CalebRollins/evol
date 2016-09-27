@@ -64,4 +64,18 @@ public class Biomorph : MonoBehaviour {
 
         firstBiomorph = false;
     }
+
+    public static void ResetTaken ()
+    {
+        for (int x = 0; x < taken.GetLength(0); x++)
+        {
+            for (int y = 0; y < taken.GetLength(1); y++)
+            {
+                for (int z = 0; z < taken.GetLength(2); z++)
+                {
+                    taken[x, y, z] = false;
+                }
+            }
+        }
+    }
 }

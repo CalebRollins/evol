@@ -13,23 +13,20 @@ public static class Development
         biomorph.scale = (biomorph.dna.genes[2] + 1.0F) / 3.5F;
         CreateEndCap(biomorph.transform, biomorph.transform.position, biomorph.color, biomorph.scale);
         GameObject trunk = GameObject.Instantiate(biomorph.prefab, biomorph.transform.position, Quaternion.identity) as GameObject;
-        
-        ScaleCylinder(trunk, biomorph.scale);
+
+        Scale (trunk.transform.Find("Model").GetComponent<MeshFilter>(), biomorph.scale, 1, biomorph.scale);
         Initialize(trunk, biomorph.gameObject, biomorph.color);
         Fractal(trunk, levels, biomorph); 
     }
 
-    public static void ScaleCylinder (GameObject original, float stretchAmount)
+    public static void Scale (MeshFilter originalMesh, float x, float y, float z)
     {
-        Vector3[] verts = original.transform.GetChild(0).GetComponent<MeshFilter>().mesh.vertices; // get all vertices from model
+        Vector3[] verts = originalMesh.mesh.vertices; // get all vertices from the mesh
 
         for (int i = 0; i < verts.Length; i++)
-        {
-            verts[i] = Vector3.Scale(verts[i], new Vector3(stretchAmount, 1.0F, stretchAmount));
-            //if (verts[i].y > 0F) verts[i] += Vector3.up * stretchAmount;
-        }
-        original.transform.GetChild(0).GetComponent<MeshFilter>().mesh.vertices = verts;
-        //original.transform.GetChild(1).transform.position += Vector3.up * stretchAmount; // move up spawn point
+            verts[i] = Vector3.Scale(verts[i], new Vector3(x, y, z)); // scale the vertices
+
+        originalMesh.mesh.vertices = verts; // reassign the vertices back to the mesh
     }
 
     public static void Fractal (GameObject parent, int levels, Biomorph biomorph)

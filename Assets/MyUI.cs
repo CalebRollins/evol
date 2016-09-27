@@ -22,6 +22,7 @@ public class MyUI : MonoBehaviour {
     public void Restart ()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Biomorph.ResetTaken();
     }
 
     public void Exit ()
